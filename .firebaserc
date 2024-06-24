@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "portfolio-bsky-app",
+    "production": "portfolio-bsky-app"
+  },
+  "targets": {},
+  "etags": {
+    "portfolio-bsky-app": {
+      "extensionInstances": {}
+    }
+  },
+  "dataconnectEmulatorConfig": {
+    "postgres": {
+      "localConnectionString": {}
+    }
+  }
+}

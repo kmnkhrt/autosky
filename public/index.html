@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#00324b" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="apple-touch-icon" href="/logo192.png" />
+  <link href="style.css" rel="stylesheet" type="text/css">
+  <link href="modaal.css" rel="stylesheet" type="text/css">
+  <link rel="manifest" href="/manifest.json" />
+  <title>Autosky</title>
+</head>
+
+<body class="background">
+  <div id="index_html" class="background">
+    <div class="box">
+      <div class="box-left" style="text-align: right; width: 34.9vw; padding: 0 5vw 0 0;">
+        <div class="title-big" style="margin:20vh 0 0 0;">Autosky</div>
+        <div class="font-gray-jp" style="font-size: 2vw;">Blueskyへ定期投稿を<br>行うことができます</div>
+      </div>
+      <div class="box-right" style="width: 45vw; margin: 0 0 0 5vw;">
+        <div class="font-blue-jp" style="margin:25vh 0 0 0;">Blueskyのアカウントでログイン</div>
+        <div class="input-set">
+          <div>
+            <svg viewBox="0 0 24 24" class="svg1 earth">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M 3 7 S 12 13 21 7" />
+              <path d="M 2 12 S 12 20 22 12" />
+              <path d="M 12 2 S 2 12 12 22" />
+              <path d="M 12 2 S 22 12 12 22" />
+            </svg>
+          </div>
+          <input class="sign input-text" type="text" value="https://bsky.social" disabled>
+        </div>
+        <div class="input-set">
+          <div>
+            <svg fill="none" viewBox="0 0 24 24" class="svg1">
+              <path fill="#788EA5" fill-rule="evenodd" clip-rule="evenodd"
+                d="M12 4a8 8 0 1 0 4.21 14.804 1 1 0 0 1 1.054 1.7A9.958 9.958 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 1.104-.27 2.31-.949 3.243-.716.984-1.849 1.6-3.331 1.465a4.207 4.207 0 0 1-2.93-1.585c-.94 1.21-2.388 1.94-3.985 1.715-2.53-.356-4.04-2.91-3.682-5.458.358-2.547 2.514-4.586 5.044-4.23.905.127 1.68.536 2.286 1.126a1 1 0 0 1 1.964.368l-.515 3.545v.002a2.222 2.222 0 0 0 1.999 2.526c.75.068 1.212-.21 1.533-.65.358-.493.566-1.245.566-2.067a8 8 0 0 0-8-8Zm-.112 5.13c-1.195-.168-2.544.819-2.784 2.529-.24 1.71.784 3.03 1.98 3.198 1.195.168 2.543-.819 2.784-2.529.24-1.71-.784-3.03-1.98-3.198Z">
+              </path>
+            </svg>
+          </div>
+          <input id="sign_mail" class="sign input-text" type="text" autocomplete="username" placeholder="メールアドレス"
+            autocapitalize="off" autocorrect="off" spellcheck="false" rows="1" enterkeyhint="next">
+        </div>
+        <div class="input-set">
+          <div>
+            <svg fill="none" viewBox="0 0 24 24" class="svg1">
+              <path fill="#788EA5" fill-rule="evenodd" clip-rule="evenodd"
+                d="M7 7a5 5 0 0 1 10 0v2h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h1V7Zm-1 4v9h12v-9H6Zm9-2H9V7a3 3 0 1 1 6 0v2Zm-3 4a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1Z">
+              </path>
+            </svg>
+          </div>
+          <input id="sign_key" class="sign input-text" type="password" autocomplete="current-password"
+            placeholder="パスワードまたはアプリパスワード" autocapitalize="off" autocorrect="off" spellcheck="false" rows="1"
+            enterkeyhint="done">
+        </div>
+        <div class="right1">
+          <button id="button_create_account" class="button-blue left1">新規登録</button>
+          <button id="button_signin" class="button-blue left1">ログイン</button>
+        </div>
+        <div id="error_message" style="color: #f00"></div>
+      </div>
+    </div>
+  </div>
+  <div id="edit_html" style="display: none;" class="background">
+    <div class="box">
+      <div class="box-left" style="background-color: #023; width: 24vw; padding: 0 0 0 1.9vw;">
+        <div class="title-medium" style="height: 20vh;">Autosky</div>
+        <div class="font-gray-jp new_post_create"><span id="new_post_create" class="selector"
+            style="padding: 0 1vw">新規作成</span>
+          <a href="#modal_setting" class="setting"><svg fill="none" viewBox="0 0 24 24" class="svg"
+              style="width: 2.5vw; position:absolute; right:2vw;">
+              <polygon
+                points="0,10 0,14 5,15 2,19 5,22 9,19 10,24 14,24 15,19 19,22 22,19 19,15 24,14 24,10 19,9 22,5 19,2 15,5 14,0 10,0 9,5 5,2 2,5 5,9"
+                fill="#788EA5" />
+              <circle cx="12" cy="12" r="9" fill="#788EA5" />
+              <circle cx="12" cy="12" r="5" fill="#001932" />
+            </svg></a>
+        </div>
+        <div id="posts" class="font-gray-jp list-items scrollbar">
+        </div>
+      </div>
+      <div class="box-right" style="width: 64vw;padding:5vw 5vw 0 5vw;">
+        <textarea id="post_textarea" class="input-text post_textarea scrollbar" cols="70" rows="15"
+          placeholder="本日も頑張ってまいりましょう"></textarea>
+        <div class="font-gray-jp font2">投稿タイミング</div>
+        <div class="font-gray-jp font2">毎<select name="interval" id="interval" class="pulldown">
+            <option value="0">週</option>
+            <option value="1">日</option>
+            <option value="2">時</option>
+          </select>:<span id="dowt"><select name="dow" id="dow" class="pulldown">
+              <option value="0">日</option>
+              <option value="1">月</option>
+              <option value="2">火</option>
+              <option value="3">水</option>
+              <option value="4">木</option>
+              <option value="5">金</option>
+              <option value="6">土</option>
+            </select>曜日</span><span id="hourt"><select name="hour" id="hour" class="pulldown">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+            </select>時</span><span id="minutet"><select name="minute" id="minute" class="pulldown">
+              <option value="0">0</option>
+              <option value="1">10</option>
+              <option value="2">20</option>
+              <option value="3">30</option>
+              <option value="4">40</option>
+              <option value="5">50</option>
+            </select>分</span>
+        </div>
+        <div>
+          <span id="edit_buttons" style="display: none;">
+            <label for="this_post_disable"><span class="font-gray-jp font2 selector"><input type="checkbox"
+                  id="this_post_disable">この投稿を無効化</span></label><a href="#modal_delete"
+              class="this-post-delete-caution"><input id="this-post-delete" class="button-gray left1" type="submit"
+                value="この投稿を削除"></a><input id="change_save" class="button-blue left1" type="submit" value="変更を保存">
+          </span>
+          <input id="new_save" class="button-blue left1" type="submit" value="新規保存">
+        </div>
+        <div id="editor_message">
+        </div>
+      </div>
+    </div>
+
+    <div id="modal_setting" style="display:none;">
+      <div id="settings">
+        <label for="all_post_disable">
+          <div class="selector mselector"><input id="all_post_disable" type="checkbox" style="cursor: pointer;">
+            全ての投稿を無効化
+          </div>
+        </label>
+        <div class="selector modaal-close" id="signout">ログアウト</div>
+        <label for="all_delete_click">
+          <div class="selector mselector">Autoskyのアカウントを削除</div>
+        </label>
+        <button style="display:none;" id="all_delete_click">Autoskyのアカウントを削除</button>
+        <div class="modaal-close">閉じる</div>
+      </div>
+      <div id="all_delete" style="display:none;">
+        <div class="modaal-confirm-content">Autoskyに登録されているアカウント情報や全ての投稿を削除してもよろしいですか？<br>Blueskyのアカウントや投稿は削除されません。
+        </div>
+        <button id="all_delete_confirm" type="button" class="modaal-confirm-btn modaal-ok"
+          aria-label="Confirm">削除する</button>
+        <label for="all_delete_cancel">
+          <span class="selector mselector">キャンセル</span>
+        </label>
+        <button style="display:none;" id="all_delete_cancel">キャンセル</button>
+      </div>
+    </div>
+    <div id="modal_delete" style="display:none;">
+      <div class="modaal-confirm-content">この投稿を削除してもよろしいですか？</div>
+      <button id="this_post_delete_confirm" type="button" class="modaal-confirm-btn modaal-ok"
+        aria-label="Confirm">削除する</button>
+      <label for="modal_delete_close">
+        <span class="selector mselector">キャンセル</span>
+      </label>
+      <button style="display: none;" id="modal_delete_close" type="button" class="modaal-confirm-btn modaal-cancel"
+        aria-label="Cancel">キャンセル</button>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="modaal.js"></script>
+  <script src="modaal_setting.js"></script>
+  <script>$(".modal").modaal();</script>
+  <script src="script.bundle.js"></script>
+</body>
+
+</html>
