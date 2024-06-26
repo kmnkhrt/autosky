@@ -35,15 +35,14 @@ exports.main = functions.https.onRequest(async (req, res) => {
   for (const auser of (await db.collection('user_data').get()).docs) { //ユーザーループ
     if (auser.data().all_post_disable) { continue } //「全ての投稿を無効化」されていたら次のユーザーへ
     let login = false //ログイン状態をfalseと設定
-    const mail = auser.id
-    for (const apost of (await db.collection(mail).get()).docs) { //投稿ループ
+    for (const apost of (await db.collection(auser.id).get()).docs) { //投稿ループ
       if (apost.data().post_disable) { continue } //無効化されていたら次の投稿へ
       //時間が合っているかどうか検証する
       if (apost.data().interval === 0 && apost.data().post_dow !== dow) { continue }
       if (apost.data().interval !== 2 && apost.data().post_hour !== hour) { continue }
       if (apost.data().post_minute !== minute) { continue }
-      if (!login) { //ログインしていないならログインする　次のユーザーループに行くとリセットされる
-        await agent.login({ identifier: mail, password: auser.data().key })
+      if (!login) { //Blueskyにログインしていないならログインする　次のユーザーループに行くとリセットされる
+        await agent.login({ identifier: auser.data().mail, password: auser.data().key })
         login = true
       }
       const rt = new RichText({

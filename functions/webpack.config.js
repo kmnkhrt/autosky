@@ -48,7 +48,7 @@ module.exports = {
       'process.env.PROJECT_ID': JSON.stringify(process.env.PROJECT_ID),
       'process.env.GOOGLE_PRIVATE_KEY_ID': JSON.stringify(process.env.GOOGLE_PRIVATE_KEY_ID),
       'process.env.GOOGLE_PRIVATE_KEY': JSON.stringify(process.env.GOOGLE_PRIVATE_KEY),
-      'process.env.GOOGLE_CLIENT_EMAIL)': JSON.stringify(process.env.GOOGLE_CLIENT_EMAIL),
+      'process.env.GOOGLE_CLIENT_EMAIL': JSON.stringify(process.env.GOOGLE_CLIENT_EMAIL),
       'process.env.GOOGLE_CLIENT_ID': JSON.stringify(process.env.GOOGLE_CLIENT_ID),
       'process.env.GOOGLE_AUTH_URI': JSON.stringify(process.env.GOOGLE_AUTH_URI),
       'process.env.GOOGLE_TOKEN_URI': JSON.stringify(process.env.GOOGLE_TOKEN_URI),

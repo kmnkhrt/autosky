@@ -28,7 +28,7 @@ initializeApp(firebaseConfig);
 const db = getFirestore();
 const auth = getAuth();
 let user: any = null; //ログインしているかどうか確認するための変数
-let editting: string | null = null; //編集中かどうか、編集中ならidは何かを保存するための変数
+let editting: any = null; //編集中かどうか、編集中ならidは何かを保存するための変数
 
 //クリックイベントから各関数へ繋げる
 document.addEventListener('click', function (event) {
@@ -84,10 +84,14 @@ const key_area = document.getElementById('sign_key') as HTMLInputElement;
 key_area.addEventListener('keyup', function (event) {
     if (event.key === 'Enter') { event.preventDefault(); signin(); }
 });
+const post_textarea = document.getElementById('post_textarea') as HTMLTextAreaElement;
+post_textarea.addEventListener('input', () => {
+    c_count_change()
+});
 
 //保存されている投稿をロード
 async function docs_lord() {
-    const querySnapshot = await getDocs(collection(db, user.email));
+    const querySnapshot = await getDocs(collection(db, user.uid));
     const docsArray = querySnapshot.docs.reverse(); //逆にすることで最新のものを上に表示
     const posts_area = document.getElementById('posts') as HTMLElement;
     posts_area.innerHTML = ""; //すでに表示されているものを一旦消す
@@ -102,8 +106,7 @@ async function docs_lord() {
 
 //編集する投稿をロード
 async function edit_doc_load() {
-    if (user.email === null || editting === null) { return }
-    const docSnap = await getDoc(doc(db, user.email, editting)); //変数に埋めたidを使って読み込む
+    const docSnap = await getDoc(doc(db, user.uid, editting)); //変数に埋めたidを使って読み込む
     if (docSnap.exists()) {
         const hour_jst = (docSnap.data().post_hour + 9) % 24; //UTCで保存しているのでJSTに戻す、曜日も
         const dow_jst = (docSnap.data().post_dow + (hour_jst < 9 ? 6 : 0)) % 7;
@@ -141,15 +144,17 @@ async function create_account() {
         const index_area = document.getElementById('index_html') as HTMLElement; //↓画面遷移
         const edit_area = document.getElementById('edit_html') as HTMLElement;
         index_area.style.display = 'none';
-        await setDoc(doc(db, "user_data", mail), {
+        await setDoc(doc(db, "user_data", user.uid), {
             all_post_disable: false,
+            mail: mail,
             key: key
         });
-        edit_area.style.display = 'block';
-        mail_area.value = '';
-        key_area.value = '';
+        edit_area.style.display = 'block'
+        mail_area.value = ''
+        key_area.value = ''
         iema(false, '')
-        document.title = 'Edit - Autosky';
+        eema(false, "アカウントの作成に成功しました")
+        document.title = 'Edit - Autosky'
     } catch (error: any) { iema(true, error.message); console.error(error); }
 }
 
@@ -164,7 +169,6 @@ async function signin() {
     try {
         await signInWithEmailAndPassword(auth, mail, key); //ログインする
         user = auth.currentUser;
-        if (user === null) { iema(true, 'ログインに失敗しました。'); return };
         const index_area = document.getElementById('index_html') as HTMLElement; //↓画面遷移
         const edit_area = document.getElementById('edit_html') as HTMLElement;
         docs_lord()
@@ -175,7 +179,7 @@ async function signin() {
         key_area.value = '';
         iema(false, '')
         document.title = 'Edit - Autosky'
-        const docSnap = await getDoc(doc(db, 'user_data', user.email)); //↓保存している投稿をロードする
+        const docSnap = await getDoc(doc(db, 'user_data', user.uid)); //↓保存している投稿をロードする
         if (docSnap.exists()) {
             const apd_area = document.getElementById('all_post_disable') as HTMLInputElement;
             apd_area.checked = docSnap.data().all_post_disable
@@ -256,7 +260,6 @@ function change_confirm(
     hour: number,
     minute: number,
     post_disable: boolean) {
-    const post_textarea = document.getElementById('post_textarea') as HTMLTextAreaElement;
     const dow_area = document.getElementById('dow') as HTMLSelectElement;
     const hour_area = document.getElementById('hour') as HTMLSelectElement;
     const minute_area = document.getElementById('minute') as HTMLSelectElement;
@@ -268,27 +271,37 @@ function change_confirm(
     minute_area.selectedIndex = minute;
     post_disable_area.checked = post_disable;
     change() //投稿のインターバルが変更される可能性があるため適用させる
+    c_count_change() //現在の文字数カウントが変更される可能性があるため適用させる
     this_post_disable() //投稿が無効化されているかが変更される可能性があるため適用させる
+}
+
+//文字数カウント
+function c_count_change() {
+    const textLength = post_textarea.value.length;
+    const c_count = document.getElementById('c_count') as HTMLElement;
+    c_count.textContent = `${textLength} / 300`;
+    if (textLength <= 300) {
+        c_count.style.color = ''
+    } else {
+        c_count.style.color = '#F00'
+    }
 }
 
 //投稿を保存する関数
 async function save() {
-    if (user === null) {
-        return;
-    }
-    const post_textarea = document.getElementById('post_textarea') as HTMLTextAreaElement;
-    if (post_textarea.value == '') { eema(true, 'テキストが入力されていません'); return };
+    if (post_textarea.value == '') { eema(true, 'テキストが入力されていません。'); return };
+    if (post_textarea.value.length > 300) { eema(true, 'テキストが300文字を超えています。'); return };
     const dow_area = document.getElementById('dow') as HTMLSelectElement;
     const hour_area = document.getElementById('hour') as HTMLSelectElement;
     const minute_area = document.getElementById('minute') as HTMLSelectElement;
     const post_disable_area = document.getElementById('this_post_disable') as HTMLInputElement;
     let save_message = '新規'; //↓編集中なら既存の投稿を削除する。idを新しくすることで作成順に並べるため。
-    if (editting !== null) { await deleteDoc(doc(db, user.email, editting)); save_message = '変更の' };
+    if (editting !== null) { await deleteDoc(doc(db, user.uid, editting)); save_message = '変更の' };
     const id = new Date().toISOString(); //現在時刻をidとする
     const hour_jst = Number(hour_area.value); //↓時間と曜日をUTCに変換する
     const hour_utc = (hour_jst + 15) % 24;
     const dow_utc = (Number(dow_area.value) + (hour_jst < 9 ? 6 : 0)) % 7;
-    const docRef = doc(db, user.email, id);
+    const docRef = doc(db, user.uid, id);
     await setDoc(docRef, { //保存する
         post_text: post_textarea.value,
         interval: Number(interval_area.value),
@@ -312,11 +325,11 @@ async function save() {
 
 //「この投稿を削除」が押された時の関数
 async function this_post_delete_confirm() {
-    if (user.email === null || editting === null) {
+    if (user.uid === null || editting === null) {
         eema(true, 'エラーが発生しました')
         return
     }
-    await deleteDoc(doc(db, user.email, editting)) //編集中のidで削除
+    await deleteDoc(doc(db, user.uid, editting)) //編集中のidで削除
     new_post_create(); //編集画面をリセット
     docs_lord(); //投稿一覧を読み込みなおす
     eema(false, '削除しました');
@@ -366,7 +379,7 @@ function eema(color_error: boolean, eemamessage: string) {
 //「全ての投稿を無効化」がクリックされた時の関数
 async function all_post_disable() {
     const apd_area = document.getElementById('all_post_disable') as HTMLInputElement;
-    await setDoc(doc(db, 'user_data', user.email), { all_post_disable: apd_area.checked })
+    await setDoc(doc(db, 'user_data', user.uid), { all_post_disable: apd_area.checked })
     let apd_message = '全ての投稿の無効化を解除しました'
     if (apd_area.checked) { apd_message = '全ての投稿を無効化しました' }
     eema(false, apd_message)
@@ -374,7 +387,6 @@ async function all_post_disable() {
 
 //「この投稿を無効化」がクリックされた時などに編集画面を編集不可にしたりそれを解除したりする関数。
 function this_post_disable() {
-    const post_textarea = document.getElementById('post_textarea') as HTMLTextAreaElement;
     const dow_area = document.getElementById('dow') as HTMLSelectElement;
     const hour_area = document.getElementById('hour') as HTMLSelectElement;
     const minute_area = document.getElementById('minute') as HTMLSelectElement;
@@ -388,9 +400,9 @@ function this_post_disable() {
 
 //アカウントを削除する関数
 async function all_delete_confirm() {
-    const query1 = await getDocs(collection(db, user.email));
+    const query1 = await getDocs(collection(db, user.uid));
     for (const doc of query1.docs) { await deleteDoc(doc.ref); } //全ての投稿を削除
-    await deleteDoc(doc(db, "user_data", user.email)) //アカウント情報を削除
+    await deleteDoc(doc(db, "user_data", user.uid)) //アカウント情報を削除
     const index_area = document.getElementById('index_html') as HTMLElement; //↓画面遷移
     const edit_area = document.getElementById('edit_html') as HTMLElement;
     const posts_area = document.getElementById('posts') as HTMLElement;
