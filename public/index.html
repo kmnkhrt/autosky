@@ -19,7 +19,7 @@
     <div class="box">
       <div class="box-left" style="text-align: right; width: 34.9vw; padding: 0 5vw 0 0;">
         <div class="title-big" style="margin:20vh 0 0 0;">Autosky</div>
-        <div class="font-gray-jp" style="font-size: 2vw;">Blueskyへ定期投稿を<br>行うことができます</div>
+        <div class="font-gray-jp" style="font-size: 2vw;">Blueskyへ予約/定期投稿を<br>行うことができます</div>
       </div>
       <div class="box-right" style="width: 45vw; margin: 0 0 0 5vw;">
         <div class="font-blue-jp" style="margin:25vh 0 0 0;">Blueskyのアカウントでログイン</div>
@@ -88,12 +88,16 @@
         <textarea id="post_textarea" class="input-text post_textarea scrollbar" cols="70" rows="15"
           placeholder="新しい投稿を作成…"></textarea>
         <span id="c_count" class="font-gray-jp font2">0 / 300</span>
-        <div class="font-gray-jp font2">投稿タイミング</div>
-        <div class="font-gray-jp font2">毎<select name="interval" id="interval" class="pulldown">
-            <option value="0">週</option>
-            <option value="1">日</option>
-            <option value="2">時</option>
-          </select>:<span id="dowt"><select name="dow" id="dow" class="pulldown">
+        <div><span class="font-gray-jp font2">投稿タイミング</span><label for="only_once"><span
+              class="font-gray-jp font2 selector left1"><input type="checkbox" id="only_once">一度だけ予約投稿する</span></label>
+        </div>
+        <div class="font-gray-jp font2"><span id="intervals">毎<select name="interval" id="interval"
+              class="pulldown lm1">
+              <option value="0">週</option>
+              <option value="1">日</option>
+              <option value="2">時</option>
+            </select><span style="margin-right: 1vw;">:</span></span><span id="dowt"><select name="dow" id="dow"
+              class="pulldown">
               <option value="0">日</option>
               <option value="1">月</option>
               <option value="2">火</option>
@@ -101,7 +105,7 @@
               <option value="4">木</option>
               <option value="5">金</option>
               <option value="6">土</option>
-            </select>曜日</span><span id="hourt"><select name="hour" id="hour" class="pulldown">
+            </select>曜日</span><span id="hourt"><select name="hour" id="hour" class="pulldown lm1">
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -126,7 +130,7 @@
               <option value="21">21</option>
               <option value="22">22</option>
               <option value="23">23</option>
-            </select>時</span><span id="minutet"><select name="minute" id="minute" class="pulldown">
+            </select>時</span><span id="minutet"><select name="minute" id="minute" class="pulldown lm1">
               <option value="0">0</option>
               <option value="1">10</option>
               <option value="2">20</option>

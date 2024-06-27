@@ -53,6 +53,9 @@ exports.main = functions.https.onRequest(async (req, res) => {
         text: rt.text,
         facets: rt.facets,
       })
+      if (apost.data().only_once) {
+        await db.collection(auser.id).doc(apost.id).delete();
+      }
     }
   }
   console.log(`問題なく終わったよ`)

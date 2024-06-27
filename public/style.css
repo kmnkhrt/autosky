@@ -204,12 +204,16 @@ textarea {
 }
 
 .pulldown{
-	margin:0 1vw;
+	margin:0 1vw 0 0;
 	background-color: #6ad;
 	height: 2.5vw;
 	width: 4vw;
 	border-radius: 0.5vw;
 	font-size: 1.5vw;
+}
+
+.lm1{
+	margin-left:1vw;
 }
 
 .font2{

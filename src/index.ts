@@ -70,6 +70,8 @@ document.addEventListener('click', function (event) {
         case 'all_delete_confirm':
             all_delete_confirm();
             break;
+        case 'only_once':
+            change();
         default:
             if (target.classList.contains('edit_post')) { //既存の投稿がクリックされた時はクラス名から起動
                 editting = target.getAttribute('data-id'); //どの投稿がクリックされたか変数に保存
@@ -117,7 +119,8 @@ async function edit_doc_load() {
             dow_jst,
             hour_jst,
             docSnap.data().post_minute,
-            docSnap.data().post_disable
+            docSnap.data().post_disable,
+            docSnap.data().only_once
         )
         edit_buttons_put() //編集中用のボタンを出す
         eema(false, 'ロードしました')
@@ -207,25 +210,36 @@ function signout() {
 function change() {
     const dow_area = document.getElementById('dow') as HTMLSelectElement;
     const hour_area = document.getElementById('hour') as HTMLSelectElement;
+    const only_once_area = document.getElementById('only_once') as HTMLInputElement;
     const dowt = document.getElementById('dowt') as HTMLSelectElement;
     const hourt = document.getElementById('hourt') as HTMLSelectElement;
-    if (interval_area.value === '0') {
+    const intervals = document.getElementById('intervals') as HTMLInputElement;
+    if (only_once_area.checked) {
         dow_area.disabled = false;
         dowt.style.display = 'inline';
         hour_area.disabled = false;
         hourt.style.display = 'inline';
+        intervals.style.display = 'none';
+    } else if (interval_area.value === '0') {
+        dow_area.disabled = false;
+        dowt.style.display = 'inline';
+        hour_area.disabled = false;
+        hourt.style.display = 'inline';
+        intervals.style.display = 'inline';
     }
     else if (interval_area.value === '1') {
         dow_area.disabled = true;
         dowt.style.display = 'none';
         hour_area.disabled = false;
         hourt.style.display = 'inline';
+        intervals.style.display = 'inline';
     }
     else if (interval_area.value === '2') {
         dow_area.disabled = true;
         dowt.style.display = 'none';
         hour_area.disabled = true;
         hourt.style.display = 'none';
+        intervals.style.display = 'inline';
     }
 }
 
@@ -249,7 +263,7 @@ function all_delete_cancel() {
 function new_post_create() {
     edit_buttons_new()
     eema(false, '')
-    change_confirm('', 0, 0, 0, 0, false)
+    change_confirm('', 0, 0, 0, 0, false, false)
 }
 
 //編集画面へ変更を反映する関数
@@ -259,17 +273,20 @@ function change_confirm(
     dow: number,
     hour: number,
     minute: number,
-    post_disable: boolean) {
+    post_disable: boolean,
+    only_once: boolean) {
     const dow_area = document.getElementById('dow') as HTMLSelectElement;
     const hour_area = document.getElementById('hour') as HTMLSelectElement;
     const minute_area = document.getElementById('minute') as HTMLSelectElement;
     const post_disable_area = document.getElementById('this_post_disable') as HTMLInputElement;
+    const only_once_area = document.getElementById('only_once') as HTMLInputElement;
     post_textarea.value = text;
     interval_area.selectedIndex = interval;
     dow_area.selectedIndex = dow;
     hour_area.selectedIndex = hour;
     minute_area.selectedIndex = minute;
     post_disable_area.checked = post_disable;
+    only_once_area.checked = only_once;
     change() //投稿のインターバルが変更される可能性があるため適用させる
     c_count_change() //現在の文字数カウントが変更される可能性があるため適用させる
     this_post_disable() //投稿が無効化されているかが変更される可能性があるため適用させる
@@ -295,6 +312,7 @@ async function save() {
     const hour_area = document.getElementById('hour') as HTMLSelectElement;
     const minute_area = document.getElementById('minute') as HTMLSelectElement;
     const post_disable_area = document.getElementById('this_post_disable') as HTMLInputElement;
+    const only_once_area = document.getElementById('only_once') as HTMLInputElement;
     let save_message = '新規'; //↓編集中なら既存の投稿を削除する。idを新しくすることで作成順に並べるため。
     if (editting !== null) { await deleteDoc(doc(db, user.uid, editting)); save_message = '変更の' };
     const id = new Date().toISOString(); //現在時刻をidとする
@@ -309,6 +327,7 @@ async function save() {
         post_hour: hour_utc,
         post_minute: Number(minute_area.value),
         post_disable: post_disable_area.checked,
+        only_once: only_once_area.checked
     })
         .then(function () {
             console.log('Document written with ID: ', docRef.id);
