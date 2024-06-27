@@ -320,9 +320,13 @@ async function save() {
     const hour_utc = (hour_jst + 15) % 24;
     const dow_utc = (Number(dow_area.value) + (hour_jst < 9 ? 6 : 0)) % 7;
     const docRef = doc(db, user.uid, id);
+    let interval = Number(interval_area.value);
+    if (only_once_area) {
+        interval = 0;
+    }
     await setDoc(docRef, { //保存する
         post_text: post_textarea.value,
-        interval: Number(interval_area.value),
+        interval: interval,
         post_dow: dow_utc,
         post_hour: hour_utc,
         post_minute: Number(minute_area.value),
