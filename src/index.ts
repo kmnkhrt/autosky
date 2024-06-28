@@ -321,7 +321,7 @@ async function save() {
     const dow_utc = (Number(dow_area.value) + (hour_jst < 9 ? 6 : 0)) % 7;
     const docRef = doc(db, user.uid, id);
     let interval = Number(interval_area.value);
-    if (only_once_area) {
+    if (only_once_area.checked) {
         interval = 0;
     }
     await setDoc(docRef, { //保存する
