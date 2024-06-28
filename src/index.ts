@@ -141,7 +141,8 @@ async function create_account() {
         const { BskyAgent } = await import("@atproto/api");
         const agent = new BskyAgent({ service: 'https://bsky.social' })
         const res = await agent.login({ identifier: mail, password: key }); //Blueskyへログインする
-        if (res === null) { iema(true, 'Blueskyへのログインに失敗しました。'); return };
+    } catch (error: any) { iema(true, `Blueskyへのログインに失敗しました。 ${error.message}`); console.error(error); return }
+    try {
         await createUserWithEmailAndPassword(auth, mail, key);//ログインに成功したならfirebaseへアカウントを作成
         user = auth.currentUser;
         const index_area = document.getElementById('index_html') as HTMLElement; //↓画面遷移
