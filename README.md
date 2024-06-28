@@ -1,9 +1,9 @@
 # Autosky
 
-Autoskyのサイトはこちら\
+Autosky のサイトはこちら\
 [https://portfolio-bsky-app.web.app/](https://portfolio-bsky-app.web.app/)
 
-Bluesky へ定期的に投稿することができる web アプリケーションです。
+Bluesky へ定期投稿・予約投稿をすることができる web アプリケーションです。
 
 ## 利用した主な言語やサービス等
 
