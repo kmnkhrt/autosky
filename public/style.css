@@ -228,6 +228,14 @@ input::placeholder{
 
 .mselector{
 	padding: 0.5vw;
+	background-color: #456;
+}
+
+.mselector:hover{
+	cursor: pointer;
+	-webkit-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+	background-color: #234;
 }
 
 .selector{
@@ -358,7 +366,6 @@ textarea {
 	float: right;
 	padding:25vh 10vw 0 0;
 	width: 45vw;
-	margin: 0 0 0 5vw;
 }
 
 .index-right2{
@@ -422,7 +429,7 @@ textarea {
 
 .right2{
 	text-align: right;
-	margin: 3% 2% 0 0;
+	margin: 2% 2% 0 0;
 }
 
 .svg3{

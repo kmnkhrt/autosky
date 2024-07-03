@@ -158,37 +158,34 @@
     <div id="modal_setting" style="display:none;">
       <div id="settings">
         <label for="all_post_disable">
-          <div class="selector mselector font1"><input id="all_post_disable" type="checkbox" style="cursor: pointer;">
+          <div class="mselector font1"><input id="all_post_disable" type="checkbox" style="cursor: pointer;">
             全ての投稿を無効化
           </div>
         </label>
-        <div class="selector modaal-close font1" id="signout">ログアウト</div>
+        <div class="mselector modaal-close font1" id="signout">ログアウト</div>
         <label for="all_delete_click">
-          <div class="selector mselector font1">Autoskyのアカウントを削除</div>
+          <div class="mselector font1">Autoskyのアカウントを削除</div>
         </label>
         <button style="display:none;" id="all_delete_click">Autoskyのアカウントを削除</button>
-        <div class="modaal-close font1">閉じる</div>
+        <div class="mselector modaal-close font1">閉じる</div>
       </div>
       <div id="all_delete" style="display:none;">
         <div class="modaal-confirm-content">Autoskyに登録されているアカウント情報や全ての投稿を削除してもよろしいですか？<br>Blueskyのアカウントや投稿は削除されません。
         </div>
         <button id="all_delete_confirm" type="button" class="modaal-confirm-btn modaal-ok"
           aria-label="Confirm">削除する</button>
-        <label for="all_delete_cancel">
-          <span class="selector mselector">キャンセル</span>
-        </label>
+        <label for="all_delete_cancel"><span class="mselector">キャンセル</span></label>
         <button style="display:none;" id="all_delete_cancel">キャンセル</button>
       </div>
     </div>
     <div id="modal_delete" style="display:none;">
       <div class="modaal-confirm-content">この投稿を削除してもよろしいですか？</div>
-      <button id="this_post_delete_confirm" type="button" class="modaal-confirm-btn modaal-ok font1"
-        aria-label="Confirm">削除する</button>
-      <label for="modal_delete_close">
-        <span class="selector mselector">キャンセル</span>
-      </label>
+      <button id="this_post_delete_confirm" type="button" class="modaal-confirm-btn modaal-ok" aria-label="Confirm"
+        style="display: none;">削除する</button>
       <button style="display: none;" id="modal_delete_close" type="button" class="modaal-confirm-btn modaal-cancel"
         aria-label="Cancel">キャンセル</button>
+      <label for="this_post_delete_confirm"><span class="mselector">削除する</span></label>
+      <label for="modal_delete_close"><span class="mselector">キャンセル</span></label>
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

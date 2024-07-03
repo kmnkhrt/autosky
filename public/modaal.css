@@ -54,7 +54,6 @@
 
 .modaal-wrapper .modaal-close {
 	border: none;
-	background: transparent;
 	-webkit-appearance: none;
 }
 
@@ -135,7 +134,7 @@
 }
 
 .modaal-close:hover{
-	background-color: #456;
+	background-color: #234;
 }
 
 .modaal-fullscreen {
