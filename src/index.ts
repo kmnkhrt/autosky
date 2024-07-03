@@ -72,8 +72,6 @@ document.addEventListener('click', function (event) {
             break;
         case 'only_once':
             change();
-        case 'test':
-            test();
         default:
             if (target.classList.contains('edit_post')) { //既存の投稿がクリックされた時はクラス名から起動
                 editting = target.getAttribute('data-id'); //どの投稿がクリックされたか変数に保存
@@ -94,14 +92,6 @@ const post_textarea = document.getElementById('post_textarea') as HTMLTextAreaEl
 post_textarea.addEventListener('input', () => {
     c_count_change()
 });
-
-function test() {
-    const index_area = document.getElementById('index_html') as HTMLElement;
-    index_area.style.display = 'none';
-    resize()
-    const edit_area = document.getElementById('edit_html') as HTMLElement;
-    edit_area.style.display = 'block';
-}
 
 //画面表示関連
 function loading() {
