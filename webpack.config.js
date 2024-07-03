@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 module.exports = {
-  mode: 'production',
+  mode: 'production', // 開発モード: development 本番モード: production
   entry: {
     script: './src/index.ts'
   },

@@ -93,7 +93,6 @@
 	position: relative;
 	vertical-align: middle;
 	text-align: center;
-	padding: 80px 25px;
 }
 
 .modaal-fullscreen .modaal-inner-wrapper {
@@ -156,7 +155,6 @@
 }
 
 .modaal-confirm-btn {
-	font-size: 14px;
 	display: inline-block;
 	margin: 0 10px;
 	vertical-align: middle;

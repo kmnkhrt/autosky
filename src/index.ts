@@ -72,6 +72,8 @@ document.addEventListener('click', function (event) {
             break;
         case 'only_once':
             change();
+        case 'test':
+            test();
         default:
             if (target.classList.contains('edit_post')) { //既存の投稿がクリックされた時はクラス名から起動
                 editting = target.getAttribute('data-id'); //どの投稿がクリックされたか変数に保存
@@ -80,6 +82,8 @@ document.addEventListener('click', function (event) {
     }
 });
 //クリックではないイベントを独自に監視
+window.addEventListener('load', loading);
+window.addEventListener('resize', resize);
 const interval_area = document.getElementById('interval') as HTMLSelectElement;
 interval_area.addEventListener('change', change);
 const key_area = document.getElementById('sign_key') as HTMLInputElement;
@@ -90,6 +94,179 @@ const post_textarea = document.getElementById('post_textarea') as HTMLTextAreaEl
 post_textarea.addEventListener('input', () => {
     c_count_change()
 });
+
+function test() {
+    const index_area = document.getElementById('index_html') as HTMLElement;
+    index_area.style.display = 'none';
+    resize()
+    const edit_area = document.getElementById('edit_html') as HTMLElement;
+    edit_area.style.display = 'block';
+}
+
+//画面表示関連
+function loading() {
+    resize()
+    const index_area = document.getElementById('index_html') as HTMLElement;
+    index_area.style.display = 'block';
+}
+function resize() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const index_area = document.getElementById('index_html') as HTMLElement;
+    const edit_area = document.getElementById('edit_html') as HTMLElement;
+    if (edit_area.style.display === 'none') {
+        const index_left = document.getElementById('index_left') as HTMLElement;
+        const index_right = document.getElementById('index_right') as HTMLElement;
+        const title_right = document.getElementById('title_right') as HTMLElement;
+        const sign_message = document.getElementById('sign_message') as HTMLElement;
+        if (width > height) {
+            const signs = Array.from(document.getElementsByClassName('signs'));
+            signs.forEach(sign => {
+                sign.classList.add('sign1');
+                sign.classList.remove('sign2');
+                (sign as HTMLElement).style.width = '';
+            });
+            const svgs = Array.from(document.getElementsByClassName('svg2'));
+            svgs.forEach(svg => {
+                svg.classList.add('svg1');
+                svg.classList.remove('svg2');
+            });
+            const blues = Array.from(document.getElementsByClassName('button-blue2'));
+            blues.forEach(blue => {
+                blue.classList.add('button-blue1');
+                blue.classList.remove('button-blue2');
+            });
+            index_right.classList.add('index-right1');
+            index_right.classList.remove('index-right2');
+            sign_message.classList.add('font-blue-jp1');
+            sign_message.classList.remove('font-blue-jp2');
+            title_right.style.display = "none";
+            index_left.style.display = "block";
+        } else {
+            const signs = Array.from(document.getElementsByClassName('signs'));
+            signs.forEach(sign => {
+                sign.classList.add('sign2');
+                sign.classList.remove('sign1');
+                (sign as HTMLElement).style.width = `${width * 0.9 - height / 20}px`;
+            });
+            const svgs = Array.from(document.getElementsByClassName('svg1'));
+            svgs.forEach(svg => {
+                svg.classList.add('svg2');
+                svg.classList.remove('svg1');
+            });
+            const blues = Array.from(document.getElementsByClassName('button-blue1'));
+            blues.forEach(blue => {
+                blue.classList.add('button-blue2');
+                blue.classList.remove('button-blue1');
+            });
+            index_right.classList.add('index-right2');
+            index_right.classList.remove('index-right1');
+            sign_message.classList.add('font-blue-jp2');
+            sign_message.classList.remove('font-blue-jp1');
+            index_left.style.display = "none";
+            title_right.style.display = "block";
+        }
+    }
+    if (index_area.style.display === 'none') {
+        const edit_left = document.getElementById('edit_left') as HTMLElement;
+        const edit_right = document.getElementById('edit_right') as HTMLElement;
+        const edit_top = document.getElementById('edit_top') as HTMLElement;
+        const etitle = document.getElementById('etitle') as HTMLElement;
+        const posts = document.getElementById('posts') as HTMLElement;
+        const gray = document.getElementById('this-post-delete') as HTMLElement;
+        if (width > height) {
+            edit_left.classList.add('edit-left1');
+            edit_left.classList.remove('edit-left2');
+            edit_right.classList.add('edit-right1');
+            edit_right.classList.remove('edit-right2');
+            edit_top.classList.add('edit-top1');
+            edit_top.classList.remove('edit-top2');
+            post_textarea.classList.add('post_textarea1');
+            post_textarea.classList.remove('post_textarea2');
+            etitle.classList.add('title-medium1');
+            etitle.classList.remove('title-medium2');
+            posts.classList.add('list-items1');
+            posts.classList.remove('list-items2');
+            gray.classList.add('button-gray1');
+            gray.classList.remove('button-gray2');
+            Array.from(document.getElementsByClassName('svg4')).forEach(svg => {
+                svg.classList.add('svg3');
+                svg.classList.remove('svg4');
+            });
+            Array.from(document.getElementsByClassName('font2')).forEach(font => {
+                font.classList.add('font1');
+                font.classList.remove('font2');
+            });
+            Array.from(document.getElementsByClassName('pulldown2')).forEach(pulldown => {
+                pulldown.classList.add('pulldown1');
+                pulldown.classList.remove('pulldown2');
+            });
+            Array.from(document.getElementsByClassName('dis2')).forEach(dis => {
+                (dis as HTMLElement).style.display = 'none'
+            });
+            Array.from(document.getElementsByClassName('dis1')).forEach(dis => {
+                (dis as HTMLElement).style.display = ''
+            });
+            Array.from(document.getElementsByClassName('edit_post')).forEach(edit_post => {
+                edit_post.classList.add('edit_post1');
+                edit_post.classList.remove('edit_post2');
+            });
+            Array.from(document.getElementsByClassName('button-blue2')).forEach(blue => {
+                blue.classList.add('button-blue1');
+                blue.classList.remove('button-blue2');
+            });
+            Array.from(document.getElementsByClassName('scrollbar2')).forEach(bar => {
+                bar.classList.add('scrollbar1');
+                bar.classList.remove('scrollbar2');
+            });
+        } else {
+            edit_left.classList.add('edit-left2');
+            edit_left.classList.remove('edit-left1');
+            edit_right.classList.add('edit-right2');
+            edit_right.classList.remove('edit-right1');
+            edit_top.classList.add('edit-top2');
+            edit_top.classList.remove('edit-top1');
+            post_textarea.classList.add('post_textarea2');
+            post_textarea.classList.remove('post_textarea1');
+            etitle.classList.add('title-medium2');
+            etitle.classList.remove('title-medium1');
+            posts.classList.add('list-items2');
+            posts.classList.remove('list-items1');
+            gray.classList.add('button-gray2');
+            gray.classList.remove('button-gray1');
+            Array.from(document.getElementsByClassName('svg3')).forEach(svg => {
+                svg.classList.add('svg4');
+                svg.classList.remove('svg3');
+            });
+            Array.from(document.getElementsByClassName('font1')).forEach(font => {
+                font.classList.add('font2');
+                font.classList.remove('font1');
+            });
+            Array.from(document.getElementsByClassName('pulldown1')).forEach(pulldown => {
+                pulldown.classList.add('pulldown2');
+                pulldown.classList.remove('pulldown1');
+            });
+            Array.from(document.getElementsByClassName('dis1')).forEach(dis => {
+                (dis as HTMLElement).style.display = 'none'
+            });
+            Array.from(document.getElementsByClassName('dis2')).forEach(dis => {
+                (dis as HTMLElement).style.display = ''
+            });
+            Array.from(document.getElementsByClassName('edit_post')).forEach(edit_post => {
+                edit_post.classList.add('edit_post2');
+                edit_post.classList.remove('edit_post1');
+            });
+            Array.from(document.getElementsByClassName('button-blue1')).forEach(blue => {
+                blue.classList.add('button-blue2');
+                blue.classList.remove('button-blue1');
+            });
+            Array.from(document.getElementsByClassName('scrollbar1')).forEach(bar => {
+                bar.classList.add('scrollbar2');
+                bar.classList.remove('scrollbar1');
+            });
+        }
+    }
+}
 
 //保存されている投稿をロード
 async function docs_lord() {
@@ -104,6 +281,7 @@ async function docs_lord() {
         docDiv.innerHTML = doc.data().post_text; //投稿するテキストのみ表示
         posts_area.appendChild(docDiv);
     });
+    resize()
 }
 
 //編集する投稿をロード
@@ -111,7 +289,7 @@ async function edit_doc_load() {
     const docSnap = await getDoc(doc(db, user.uid, editting)); //変数に埋めたidを使って読み込む
     if (docSnap.exists()) {
         const hour_jst = (docSnap.data().post_hour + 9) % 24; //UTCで保存しているのでJSTに戻す、曜日も
-        const dow_jst = (docSnap.data().post_dow + (hour_jst < 9 ? 6 : 0)) % 7;
+        const dow_jst = (docSnap.data().post_dow + (hour_jst < 9 ? 1 : 0)) % 7;
         //変更を適用する関数へロードする内容を渡す
         change_confirm(
             docSnap.data().post_text,
@@ -148,6 +326,7 @@ async function create_account() {
         const index_area = document.getElementById('index_html') as HTMLElement; //↓画面遷移
         const edit_area = document.getElementById('edit_html') as HTMLElement;
         index_area.style.display = 'none';
+        resize()
         await setDoc(doc(db, "user_data", user.uid), {
             all_post_disable: false,
             mail: mail,
@@ -178,6 +357,7 @@ async function signin() {
         docs_lord()
         eema(false, "ログインに成功しました")
         index_area.style.display = 'none';
+        resize()
         edit_area.style.display = 'block';
         mail_area.value = '';
         key_area.value = '';
@@ -200,6 +380,7 @@ function signout() {
             .catch((error) => { eema(true, 'ログアウトに失敗しました'); console.error(error); });
     }
     edit_area.style.display = 'none'; //↓画面遷移
+    resize()
     const posts_area = document.getElementById('posts') as HTMLElement;
     posts_area.innerHTML = '';
     index_area.style.display = 'block';
@@ -296,12 +477,16 @@ function change_confirm(
 //文字数カウント
 function c_count_change() {
     const textLength = post_textarea.value.length;
-    const c_count = document.getElementById('c_count') as HTMLElement;
-    c_count.textContent = `${textLength} / 300`;
+    const c_count1 = document.getElementById('c_count1') as HTMLElement;
+    c_count1.textContent = `${textLength} / 300`;
+    const c_count2 = document.getElementById('c_count2') as HTMLElement;
+    c_count2.textContent = `${textLength} / 300`;
     if (textLength <= 300) {
-        c_count.style.color = ''
+        c_count1.style.color = ''
+        c_count2.style.color = ''
     } else {
-        c_count.style.color = '#F00'
+        c_count1.style.color = '#F00'
+        c_count2.style.color = '#F00'
     }
 }
 
@@ -431,6 +616,7 @@ async function all_delete_confirm() {
     const edit_area = document.getElementById('edit_html') as HTMLElement;
     const posts_area = document.getElementById('posts') as HTMLElement;
     edit_area.style.display = 'none';
+    resize()
     posts_area.innerHTML = '';
     index_area.style.display = 'block';
     document.title = 'Autosky';

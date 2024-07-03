@@ -2,8 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
-const dotenv = require('dotenv');//
-dotenv.config();//
+const dotenv = require('dotenv');
+dotenv.config();
 
 module.exports = {
   mode: 'production', // 開発モード: development 本番モード: production

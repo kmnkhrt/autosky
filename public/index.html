@@ -15,14 +15,18 @@
 </head>
 
 <body class="background">
-  <div id="index_html" class="background">
+  <div id="index_html" class="background" style="display: none;">
     <div class="box">
-      <div class="box-left" style="text-align: right; width: 34.9vw; padding: 0 5vw 0 0;">
-        <div class="title-big" style="margin:20vh 0 0 0;">Autosky</div>
+      <div id="index_left" class="index-left">
+        <div class="title-big1" style="margin:20vh 0 0 0;">Autosky</div>
         <div class="font-gray-jp" style="font-size: 2vw;">Blueskyへ予約/定期投稿を<br>行うことができます</div>
       </div>
-      <div class="box-right" style="width: 45vw; margin: 0 0 0 5vw;">
-        <div class="font-blue-jp" style="margin:25vh 0 0 0;">Blueskyのアカウントでログイン</div>
+      <div id="index_right">
+        <div id="title_right" style="display: none;">
+          <div class="title-big2">Autosky</div>
+          <div class="font-gray-jp" style="font-size: 3vh;">Blueskyへ予約/定期投稿を<br>行うことができます</div>
+        </div>
+        <div id="sign_message" class="font-blue-jp1">Blueskyのアカウントでログイン</div>
         <div class="input-set">
           <div>
             <svg viewBox="0 0 24 24" class="svg1 earth">
@@ -33,7 +37,7 @@
               <path d="M 12 2 S 22 12 12 22" />
             </svg>
           </div>
-          <input class="sign input-text" type="text" value="https://bsky.social" disabled>
+          <input class="signs sign1 input-text" type="text" value="https://bsky.social" disabled>
         </div>
         <div class="input-set">
           <div>
@@ -43,7 +47,7 @@
               </path>
             </svg>
           </div>
-          <input id="sign_mail" class="sign input-text" type="text" autocomplete="username" placeholder="メールアドレス"
+          <input id="sign_mail" class="signs sign1 input-text" type="text" autocomplete="username" placeholder="メールアドレス"
             autocapitalize="off" autocorrect="off" spellcheck="false" rows="1" enterkeyhint="next">
         </div>
         <div class="input-set">
@@ -54,26 +58,26 @@
               </path>
             </svg>
           </div>
-          <input id="sign_key" class="sign input-text" type="password" autocomplete="current-password"
+          <input id="sign_key" class="signs sign1 input-text" type="password" autocomplete="current-password"
             placeholder="パスワードまたはアプリパスワード" autocapitalize="off" autocorrect="off" spellcheck="false" rows="1"
             enterkeyhint="done">
         </div>
         <div class="right1">
-          <button id="button_create_account" class="button-blue left1">新規登録</button>
-          <button id="button_signin" class="button-blue left1">ログイン</button>
+          <button id="test" class="button-blue1 left1">test</button>
+          <button id="button_create_account" class="button-blue1 left1">新規登録</button>
+          <button id="button_signin" class="button-blue1 left1">ログイン</button>
         </div>
         <div id="error_message" style="color: #f00"></div>
       </div>
     </div>
   </div>
-  <div id="edit_html" style="display: none;" class="background">
+  <div id="edit_html" class="background" style="display: none;">
     <div class="box">
-      <div class="box-left" style="background-color: #023; width: 24vw; padding: 0 0 0 1.9vw;">
-        <div class="title-medium" style="height: 20vh;">Autosky</div>
-        <div class="font-gray-jp new_post_create"><span id="new_post_create" class="selector"
+      <div id="edit_left">
+        <div id="etitle">Autosky</div>
+        <div id="edit_top" class="font-gray-jp"><span id="new_post_create" class="selector"
             style="padding: 0 1vw">新規作成</span>
-          <a href="#modal_setting" class="setting"><svg fill="none" viewBox="0 0 24 24" class="svg"
-              style="width: 2.5vw; position:absolute; right:2vw;">
+          <a href="#modal_setting" class="setting"><svg fill="none" viewBox="0 0 24 24" class="svg3">
               <polygon
                 points="0,10 0,14 5,15 2,19 5,22 9,19 10,24 14,24 15,19 19,22 22,19 19,15 24,14 24,10 19,9 22,5 19,2 15,5 14,0 10,0 9,5 5,2 2,5 5,9"
                 fill="#788EA5" />
@@ -81,23 +85,23 @@
               <circle cx="12" cy="12" r="5" fill="#001932" />
             </svg></a>
         </div>
-        <div id="posts" class="font-gray-jp list-items scrollbar">
+        <div id="posts" class="font-gray-jp scrollbar1">
         </div>
       </div>
-      <div class="box-right" style="width: 64vw;padding:5vw 5vw 0 5vw;">
-        <textarea id="post_textarea" class="input-text post_textarea scrollbar" cols="70" rows="15"
-          placeholder="新しい投稿を作成…"></textarea>
-        <span id="c_count" class="font-gray-jp font2">0 / 300</span>
-        <div><span class="font-gray-jp font2">投稿タイミング</span><label for="only_once"><span
-              class="font-gray-jp font2 selector left1"><input type="checkbox" id="only_once">一度だけ予約投稿する</span></label>
+      <div id="edit_right" class="edit-right">
+        <textarea id="post_textarea" class="input-text scrollbar1" placeholder="新しい投稿を作成…"></textarea>
+        <span id="c_count1" class="dis1 font-gray-jp font1">0 / 300</span>
+        <div class="font-gray-jp font1"><span id="c_count2" class="dis2">0 / 300</span><span
+            class="dis1">投稿日時設定</span><label for="only_once"><span class="selector left1"><input type="checkbox"
+                id="only_once">一度だけ予約投稿する</span></label>
         </div>
-        <div class="font-gray-jp font2"><span id="intervals"><span class="rm1">毎</span><select name="interval"
-              id="interval" class="pulldown">
-              <option value="0">週</option>
-              <option value="1">日</option>
-              <option value="2">時</option>
-            </select><span class="rm1">:</span></span><span id="dowt" class="rm1"><select name="dow" id="dow"
-              class="pulldown">
+        <div class="font-gray-jp font1"><span class="rm1 dis2">投稿日時設定</span><span id="intervals"><select name="interval"
+              id="interval" class="pulldown1">
+              <option value="0">毎週</option>
+              <option value="1">毎日</option>
+              <option value="2">毎時</option>
+            </select><span class="rm1 dis1">:</span></span><br class="dis2"><span id="dowt" class="rm1"><select
+              name="dow" id="dow" class="pulldown1">
               <option value="0">日</option>
               <option value="1">月</option>
               <option value="2">火</option>
@@ -105,7 +109,7 @@
               <option value="4">木</option>
               <option value="5">金</option>
               <option value="6">土</option>
-            </select>曜日</span><span id="hourt" class="rm1"><select name="hour" id="hour" class="pulldown">
+            </select>曜日</span><span id="hourt" class="rm1"><select name="hour" id="hour" class="pulldown1">
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -130,7 +134,7 @@
               <option value="21">21</option>
               <option value="22">22</option>
               <option value="23">23</option>
-            </select>時</span><span id="minutet"><select name="minute" id="minute" class="pulldown">
+            </select>時</span><span id="minutet"><select name="minute" id="minute" class="pulldown1">
               <option value="0">0</option>
               <option value="1">10</option>
               <option value="2">20</option>
@@ -141,36 +145,35 @@
         </div>
         <div>
           <span id="edit_buttons" style="display: none;">
-            <label for="this_post_disable"><span class="font-gray-jp font2 selector"><input type="checkbox"
+            <label for="this_post_disable"><span class="font-gray-jp font1 selector right2"><input type="checkbox"
                   id="this_post_disable">この投稿を無効化</span></label><a href="#modal_delete"
-              class="this-post-delete-caution"><input id="this-post-delete" class="button-gray left1" type="submit"
-                value="この投稿を削除"></a><input id="change_save" class="button-blue left1" type="submit" value="変更を保存">
+              class="this-post-delete-caution"><input id="this-post-delete" class="button-gray right2" type="submit"
+                value="この投稿を削除"></a><input id="change_save" class="button-blue1 right2" type="submit" value="変更を保存">
           </span>
-          <input id="new_save" class="button-blue left1" type="submit" value="新規保存">
+          <input id="new_save" class="button-blue1" type="submit" value="新規保存">
         </div>
-        <div id="editor_message">
-        </div>
+        <div id="editor_message"></div>
       </div>
     </div>
 
     <div id="modal_setting" style="display:none;">
       <div id="settings">
         <label for="all_post_disable">
-          <div class="selector mselector"><input id="all_post_disable" type="checkbox" style="cursor: pointer;">
+          <div class="selector mselector font1"><input id="all_post_disable" type="checkbox" style="cursor: pointer;">
             全ての投稿を無効化
           </div>
         </label>
-        <div class="selector modaal-close" id="signout">ログアウト</div>
+        <div class="selector modaal-close font1" id="signout">ログアウト</div>
         <label for="all_delete_click">
-          <div class="selector mselector">Autoskyのアカウントを削除</div>
+          <div class="selector mselector font1">Autoskyのアカウントを削除</div>
         </label>
         <button style="display:none;" id="all_delete_click">Autoskyのアカウントを削除</button>
-        <div class="modaal-close">閉じる</div>
+        <div class="modaal-close font1">閉じる</div>
       </div>
       <div id="all_delete" style="display:none;">
         <div class="modaal-confirm-content">Autoskyに登録されているアカウント情報や全ての投稿を削除してもよろしいですか？<br>Blueskyのアカウントや投稿は削除されません。
         </div>
-        <button id="all_delete_confirm" type="button" class="modaal-confirm-btn modaal-ok"
+        <button id="all_delete_confirm" type="button" class="modaal-confirm-btn modaal-ok font1"
           aria-label="Confirm">削除する</button>
         <label for="all_delete_cancel">
           <span class="selector mselector">キャンセル</span>
@@ -180,7 +183,7 @@
     </div>
     <div id="modal_delete" style="display:none;">
       <div class="modaal-confirm-content">この投稿を削除してもよろしいですか？</div>
-      <button id="this_post_delete_confirm" type="button" class="modaal-confirm-btn modaal-ok"
+      <button id="this_post_delete_confirm" type="button" class="modaal-confirm-btn modaal-ok font1"
         aria-label="Confirm">削除する</button>
       <label for="modal_delete_close">
         <span class="selector mselector">キャンセル</span>

@@ -4,61 +4,109 @@
 	height: 100vh;
 }
 
-.title-big{
+.title-big1{
 color:#acf;
 font-size:8vw;
 font-family:'Vollkorn',serif;
 font-weight:bold;
 }
-.title-medium{
+
+.title-medium1{
 	color:#acf;
 	font-size:5vw;
 	font-family:'Vollkorn',serif;
 	font-weight:bold;
+	height: 1.5em;
+}
+.title-medium2{
+	color:#acf;
+	font-size:5vh;
+	font-family:'Vollkorn',serif;
+	font-weight:bold;
+	height: 1.5em;
+	margin-left: 5vw;
 }
 
 .box{
-	width: 100vw;
+	width: 100%;
 	height: 100%;
 }
-.box-left{
+.edit-left1{
+	background-color: #023;
+	width: 24vw;
+	padding: 0 0 0 1.8vw;
 	float: left;
 	height: 100%;
 	border:solid;
 	border-width: 0 0.1vw 0 0;
 	border-color: #666;
 }
-.box-right{
+.edit-left2{
+	background-color: #023;
+	width: 100%;
+	height: 30%;
+	border:solid;
+	border-width: 0 0 0.1vw 0;
+	border-color: #666;
+}
+.edit-right1{
 	position: relative;
 	float: right;
-	padding:0 10vw 0 0;
+	width: 64vw;
+	padding:5vh 5vw 0 0;
 }
-.font-blue-jp{
+.edit-right2{
+	width: 90vw;
+	padding:3vh 5vw 0 5vw;
+}
+
+.font-blue-jp1{
   color: #c9daf8;
 	font-size: 2vw;
 }
+
 .font-gray-jp{
   color: #ddd;
 }
 
-.list-items{
+.list-items1{
 	font-size: 1.5vw;
 	height: 70vh;
 	overflow-y: scroll;
 }
+.list-items2{
+	margin: 2vh 5% 0 5%;
+	font-size: 2.5vh;
+	height: 52%;
+	overflow-y: scroll;
+}
 
-.scrollbar{
+.scrollbar1{
 	scrollbar-gutter: stable;
 }
 
-.scrollbar::-webkit-scrollbar{
+.scrollbar1::-webkit-scrollbar{
 	background: transparent;
 	width: 0.5vw;
 }
 
-.scrollbar::-webkit-scrollbar-thumb {
+.scrollbar1::-webkit-scrollbar-thumb {
 	background: #579;
 	border-radius: 0.2vw;
+}
+
+.scrollbar2{
+	scrollbar-gutter: stable;
+}
+
+.scrollbar2::-webkit-scrollbar{
+	background: transparent;
+	width: 3vw;
+}
+
+.scrollbar2::-webkit-scrollbar-thumb {
+	background: #579;
+	border-radius: 2vw;
 }
 
 .input-set{
@@ -81,7 +129,7 @@ font-weight:bold;
 	border: 0;
 }
 
-.sign{
+.sign1{
 	font-size: 2vw;
 	border-radius: 1vw;
 	width: 41vw;
@@ -98,7 +146,7 @@ input::placeholder{
 	color:#68a;
 }
 
-.button-blue{
+.button-blue1{
 	font-size:1.5vw;
 	background-color:#3c9cff;
 	color:#FFF;
@@ -109,7 +157,7 @@ input::placeholder{
 	cursor: pointer;
 }
 
-.button-gray{
+.button-gray1{
 	font-size:1.5vw;
 	background-color:#444;
 	color:#FFF;
@@ -197,28 +245,44 @@ textarea {
 	padding: 0.5vw 0vw 0.5vw 0.5vw;
 }
 
-.post_textarea{
+.post_textarea1{
 	color: #ddd;
 	border-radius: 0.5vw;
 	font-size: 1.5vw;
+	width: 55vw;
+	height: 51vh;
 }
 
-.pulldown{
+.pulldown1{
 	margin:0 1vw 0 0;
 	background-color: #6ad;
 	height: 2.5vw;
-	width: 4vw;
+	width: auto;
 	border-radius: 0.5vw;
 	font-size: 1.5vw;
 }
 
+.pulldown2{
+	margin:1vh 1vw 0 0;
+	background-color: #6ad;
+	height: 4vh;
+	width: auto;
+	border-radius: 0.5vw;
+	font-size: 2.5vh;
+}
+
 .rm1{
-	margin-right:1vw;
+	margin:1vh 1vw 0 0;
+}
+
+.font1{
+	font-size: 1.5vw;
+	margin: 0.5vw 0;
 }
 
 .font2{
-	font-size: 1.5vw;
-	margin: 0.5vw 0;
+	font-size: 2.5vh;
+	margin: 1vh 0;
 }
 
 .left1{
@@ -230,9 +294,17 @@ textarea {
 	margin: 1vw 0 0 1vw;
 }
 
-.edit_post{
+.edit_post1{
 	cursor: pointer;
 	max-width: 23.5vw;
+	width: fit-content;
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
+}
+.edit_post2{
+	cursor: pointer;
+	max-width: 100%;
 	width: fit-content;
 	white-space: nowrap;
 	overflow-x: hidden;
@@ -243,9 +315,17 @@ textarea {
 	background-color: #456;
 }
 
-.new_post_create{
+.edit-top1{
 	height: 10vh;
 	font-size: 2vw;
+	font-weight: bold;
+	position: relative;
+}
+
+.edit-top2{
+	margin-left:5vw;
+	height: 5vh;
+	font-size: 4vh;
 	font-weight: bold;
 	position: relative;
 }
@@ -254,4 +334,120 @@ textarea {
 	stroke-width:2px;
 	stroke: #788EA5;
 	fill: none;
+}
+
+.box-center{
+	padding:0 10vw 0 0;
+}
+
+.index-left{
+	float: left;
+	height: 100%;
+	border:solid;
+	border-width: 0 0.1vw 0 0;
+	border-color: #666;
+	text-align: right;
+	width: 34.8vw;
+	padding: 0 5vw 0 0;
+}
+
+.index-right1{
+	position: relative;
+	float: right;
+	padding:25vh 10vw 0 0;
+	width: 45vw;
+	margin: 0 0 0 5vw;
+}
+
+.index-right2{
+	width: 90%;
+	padding:15vh 5vw 0 5vw;
+}
+
+.font-blue-jp2{
+	padding-top: 3vh;
+  color: #c9daf8;
+	font-size: 2.5vh;
+}
+
+.title-big2{
+	color:#acf;
+	font-size:8vh;
+	font-family:'Vollkorn',serif;
+	font-weight:bold;
+}
+
+.svg2{
+	font-size: 2.5vh;
+	color: #acf;
+	pointer-events: none;
+	flex-shrink: 0;
+	position:absolute;
+	width: 1.5em;
+	height: 1.5em;
+	padding: 0.25em 0 0 0.25em;
+}
+
+.sign2{
+	font-size: 2.5vh;
+	border-radius: 1vw;
+	width: 90%;
+	height: 5vh;
+	padding-left: 5vh;
+}
+
+.button-blue2{
+	font-size:2.5vh;
+	background-color:#3c9cff;
+	color:#FFF;
+	font-weight: bold;
+	border: 0;
+	border-radius: 0.5em;
+	padding: 0.5em;
+	cursor: pointer;
+}
+
+.button-gray2{
+	font-size:2.5vh;
+	background-color:#444;
+	color:#FFF;
+	font-weight: bold;
+	border: 0;
+	border-radius: 0.5em;
+	padding: 0.5em;
+	cursor: pointer;
+}
+
+.right2{
+	text-align: right;
+	margin: 3% 2% 0 0;
+}
+
+.svg3{
+	width: 2.5vw;
+	right:2vw;
+	font-size: 2vw;
+	color: #acf;
+	flex-shrink: 0;
+	position:absolute;
+	width: 1.5em;
+	height: 1.5em;
+	padding: 0.25em 0 0 0.25em;
+}
+
+.svg4{
+	right:2vw;
+	color: #acf;
+	flex-shrink: 0;
+	position:absolute;
+	width: 1.5em;
+	height: 1.5em;
+}
+
+.post_textarea2{
+	color: #ddd;
+	border-radius: 0.5vw;
+	font-size: 2.5vh;
+	width: 100%;
+	height: 20vh;
 }
