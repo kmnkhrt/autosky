@@ -274,7 +274,6 @@ async function docs_load() {
     });
     docs_counting_area.innerHTML = `${docsArray.length} / 10`
     if (docsArray.length >= 10) { docs_counting_area.style.color = '#F00' } else { docs_counting_area.style.color = '' }
-    docs_count_max()
 }
 
 //編集する投稿をロード
@@ -347,7 +346,8 @@ async function signin() {
         user = auth.currentUser;
         const index_area = document.getElementById('index_html') as HTMLElement; //↓画面遷移
         const edit_area = document.getElementById('edit_html') as HTMLElement;
-        docs_load()
+        await docs_load()
+        docs_count_max()
         eema(false, "ログインに成功しました")
         index_area.style.display = 'none';
         resize()
@@ -440,6 +440,9 @@ function new_post_create() {
     eema(false, '')
     change_confirm('', 0, 0, 0, 0, false, false)
     docs_count_max()
+    if ((document.getElementById('docs_counting') as HTMLElement).innerHTML === '10 / 10') {
+        eema(true, '保存数の上限に達しているため新規保存できません')
+    }
 }
 
 //編集画面へ変更を反映する関数
@@ -536,8 +539,8 @@ async function this_post_delete_confirm() {
         return
     }
     await deleteDoc(doc(db, user.uid, editting)) //編集中のidで削除
+    await docs_load(); //投稿一覧を読み込みなおす
     new_post_create(); //編集画面をリセット
-    docs_load(); //投稿一覧を読み込みなおす
     eema(false, '削除しました');
 }
 
@@ -637,6 +640,5 @@ function docs_count_max() {
         dow_area.disabled = true
         hour_area.disabled = true
         minute_area.disabled = true
-        eema(true, '保存数の上限に達しているため新規保存できません')
     }
 }
