@@ -259,10 +259,11 @@ function resize() {
 }
 
 //保存されている投稿をロード
-async function docs_lord() {
+async function docs_load() {
     const querySnapshot = await getDocs(collection(db, user.uid));
     const docsArray = querySnapshot.docs.reverse(); //逆にすることで最新のものを上に表示
     const posts_area = document.getElementById('posts') as HTMLElement;
+    const docs_counting_area = document.getElementById('docs_counting') as HTMLElement;
     posts_area.innerHTML = ""; //すでに表示されているものを一旦消す
     docsArray.forEach((doc) => {
         const docDiv = document.createElement('div');
@@ -271,7 +272,9 @@ async function docs_lord() {
         docDiv.innerHTML = doc.data().post_text; //投稿するテキストのみ表示
         posts_area.appendChild(docDiv);
     });
-    resize()
+    docs_counting_area.innerHTML = `${docsArray.length} / 10`
+    if (docsArray.length >= 10) { docs_counting_area.style.color = '#F00' } else { docs_counting_area.style.color = '' }
+    docs_count_max()
 }
 
 //編集する投稿をロード
@@ -344,7 +347,7 @@ async function signin() {
         user = auth.currentUser;
         const index_area = document.getElementById('index_html') as HTMLElement; //↓画面遷移
         const edit_area = document.getElementById('edit_html') as HTMLElement;
-        docs_lord()
+        docs_load()
         eema(false, "ログインに成功しました")
         index_area.style.display = 'none';
         resize()
@@ -436,6 +439,7 @@ function new_post_create() {
     edit_buttons_new()
     eema(false, '')
     change_confirm('', 0, 0, 0, 0, false, false)
+    docs_count_max()
 }
 
 //編集画面へ変更を反映する関数
@@ -482,6 +486,9 @@ function c_count_change() {
 
 //投稿を保存する関数
 async function save() {
+    if (editting === null && (document.getElementById('docs_counting') as HTMLElement).innerHTML === '10 / 10') {
+        eema(true, '保存数の上限に達しているため新規保存できません')
+    }
     if (post_textarea.value == '') { eema(true, 'テキストが入力されていません。'); return };
     if (post_textarea.value.length > 300) { eema(true, 'テキストが300文字を超えています。'); return };
     const dow_area = document.getElementById('dow') as HTMLSelectElement;
@@ -511,7 +518,7 @@ async function save() {
     })
         .then(function () {
             console.log('Document written with ID: ', docRef.id);
-            docs_lord()
+            docs_load()
             edit_buttons_put()
             editting = docRef.id
             eema(false, `${save_message}保存に成功しました`)
@@ -530,7 +537,7 @@ async function this_post_delete_confirm() {
     }
     await deleteDoc(doc(db, user.uid, editting)) //編集中のidで削除
     new_post_create(); //編集画面をリセット
-    docs_lord(); //投稿一覧を読み込みなおす
+    docs_load(); //投稿一覧を読み込みなおす
     eema(false, '削除しました');
 }
 
@@ -618,4 +625,18 @@ async function all_delete_confirm() {
         eema(true, `'アカウントの削除に失敗しました。'${error}`)
     });
     user = null
+}
+
+function docs_count_max() {
+    if ((document.getElementById('docs_counting') as HTMLElement).innerHTML === '10 / 10') {
+        const dow_area = document.getElementById('dow') as HTMLSelectElement;
+        const hour_area = document.getElementById('hour') as HTMLSelectElement;
+        const minute_area = document.getElementById('minute') as HTMLSelectElement;
+        post_textarea.disabled = true
+        interval_area.disabled = true
+        dow_area.disabled = true
+        hour_area.disabled = true
+        minute_area.disabled = true
+        eema(true, '保存数の上限に達しているため新規保存できません')
+    }
 }
