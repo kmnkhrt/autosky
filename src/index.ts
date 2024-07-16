@@ -72,6 +72,10 @@ document.addEventListener('click', function (event) {
             break;
         case 'only_once':
             change();
+            break;
+        case 'test':
+            test();
+            break;
         default:
             if (target.classList.contains('edit_post')) { //既存の投稿がクリックされた時はクラス名から起動
                 editting = target.getAttribute('data-id'); //どの投稿がクリックされたか変数に保存
@@ -256,6 +260,15 @@ function resize() {
             });
         }
     }
+}
+function test() {
+    const index_area = document.getElementById('index_html') as HTMLElement; //↓画面遷移
+    const edit_area = document.getElementById('edit_html') as HTMLElement;
+    index_area.style.display = 'none';
+    resize()
+    edit_area.style.display = 'block';
+    iema(false, '')
+    document.title = 'Edit - Autosky'
 }
 
 //保存されている投稿をロード
@@ -494,6 +507,7 @@ async function save() {
     }
     if (post_textarea.value == '') { eema(true, 'テキストが入力されていません。'); return };
     if (post_textarea.value.length > 300) { eema(true, 'テキストが300文字を超えています。'); return };
+    if (user === null) { eema(true, 'ログインしていません'); return };
     const dow_area = document.getElementById('dow') as HTMLSelectElement;
     const hour_area = document.getElementById('hour') as HTMLSelectElement;
     const minute_area = document.getElementById('minute') as HTMLSelectElement;
