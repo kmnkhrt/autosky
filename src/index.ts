@@ -396,36 +396,26 @@ function signout() {
 
 //投稿のインターバルが変更された時に要らないものを隠す関数
 function change() {
-    const dow_area = document.getElementById('dow') as HTMLSelectElement;
-    const hour_area = document.getElementById('hour') as HTMLSelectElement;
     const only_once_area = document.getElementById('only_once') as HTMLInputElement;
     const dowt = document.getElementById('dowt') as HTMLSelectElement;
     const hourt = document.getElementById('hourt') as HTMLSelectElement;
     const intervals = document.getElementById('intervals') as HTMLInputElement;
     if (only_once_area.checked) {
-        dow_area.disabled = false;
         dowt.style.display = 'inline';
-        hour_area.disabled = false;
         hourt.style.display = 'inline';
         intervals.style.display = 'none';
     } else if (interval_area.value === '0') {
-        dow_area.disabled = false;
         dowt.style.display = 'inline';
-        hour_area.disabled = false;
         hourt.style.display = 'inline';
         intervals.style.display = 'inline';
     }
     else if (interval_area.value === '1') {
-        dow_area.disabled = true;
         dowt.style.display = 'none';
-        hour_area.disabled = false;
         hourt.style.display = 'inline';
         intervals.style.display = 'inline';
     }
     else if (interval_area.value === '2') {
-        dow_area.disabled = true;
         dowt.style.display = 'none';
-        hour_area.disabled = true;
         hourt.style.display = 'none';
         intervals.style.display = 'inline';
     }
@@ -614,6 +604,8 @@ function this_post_disable() {
     const hour_area = document.getElementById('hour') as HTMLSelectElement;
     const minute_area = document.getElementById('minute') as HTMLSelectElement;
     const post_disable_area = document.getElementById('this_post_disable') as HTMLInputElement;
+    const only_once_area = document.getElementById('only_once') as HTMLSelectElement;
+    only_once_area.disabled = post_disable_area.checked
     post_textarea.disabled = post_disable_area.checked
     interval_area.disabled = post_disable_area.checked
     dow_area.disabled = post_disable_area.checked
