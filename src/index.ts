@@ -289,12 +289,21 @@ async function docs_load() {
     if (docsArray.length >= 10) { docs_counting_area.style.color = '#F00' } else { docs_counting_area.style.color = '' }
 }
 
+function hour_u_to_j(utc: number) {
+    return (utc + 9) % 24
+}
+
+function dow_u_to_j(dow_utc: number, hour_utc: number) {
+    return (dow_utc + (hour_utc > 14 ? 1 : 0)) % 7
+}
+
 //編集する投稿をロード
 async function edit_doc_load() {
     const docSnap = await getDoc(doc(db, user.uid, editting)); //変数に埋めたidを使って読み込む
     if (docSnap.exists()) {
-        const hour_jst = (docSnap.data().post_hour + 9) % 24; //UTCで保存しているのでJSTに戻す、曜日も
-        const dow_jst = (docSnap.data().post_dow + (hour_jst < 9 ? 1 : 0)) % 7;
+        const hour_utc = docSnap.data().post_hour
+        const hour_jst = hour_u_to_j(hour_utc); //UTCで保存しているのでJSTに戻す、曜日も
+        const dow_jst = dow_u_to_j(docSnap.data().post_dow, hour_utc);
         //変更を適用する関数へロードする内容を渡す
         change_confirm(
             docSnap.data().post_text,
@@ -439,9 +448,14 @@ function all_delete_cancel() {
 
 //新規投稿を作成する時やログアウトする時に編集画面をリセットするやつ
 function new_post_create() {
+    let date = new Date()
+    let dow = date.getDay()
+    let hour = date.getHours()
+    let minute = (date.getMinutes() / 10 + 1) % 6
+    if (minute == 0) { hour = (hour + 1) % 24; if (hour == 0) { dow = (dow + 1) % 7 }; }
     edit_buttons_new()
     eema(false, '')
-    change_confirm('', 0, 0, 0, 0, false, false)
+    change_confirm('', 0, dow, hour, minute, false, false)
     docs_count_max()
     if ((document.getElementById('docs_counting') as HTMLElement).innerHTML === '10 / 10') {
         eema(true, '保存数の上限に達しているため新規保存できません')
@@ -522,7 +536,7 @@ async function save() {
         post_minute: Number(minute_area.value),
         post_disable: post_disable_area.checked,
         only_once: only_once_area.checked
-    })
+    }, { merge: true })
         .then(function () {
             console.log('Document written with ID: ', docRef.id);
             docs_load()
@@ -592,7 +606,7 @@ function eema(color_error: boolean, eemamessage: string) {
 //「全ての投稿を無効化」がクリックされた時の関数
 async function all_post_disable() {
     const apd_area = document.getElementById('all_post_disable') as HTMLInputElement;
-    await setDoc(doc(db, 'user_data', user.uid), { all_post_disable: apd_area.checked })
+    await setDoc(doc(db, 'user_data', user.uid), { all_post_disable: apd_area.checked }, { merge: true })
     let apd_message = '全ての投稿の無効化を解除しました'
     if (apd_area.checked) { apd_message = '全ての投稿を無効化しました' }
     eema(false, apd_message)
