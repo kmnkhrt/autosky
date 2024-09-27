@@ -346,6 +346,7 @@ async function create_account() {
             mail: mail,
             key: key
         });
+        new_post_create()
         edit_area.style.display = 'block'
         mail_area.value = ''
         key_area.value = ''
@@ -370,13 +371,14 @@ async function signin() {
         const edit_area = document.getElementById('edit_html') as HTMLElement;
         await docs_load()
         docs_count_max()
-        eema(false, "ログインに成功しました")
         index_area.style.display = 'none';
         resize()
+        new_post_create()
         edit_area.style.display = 'block';
         mail_area.value = '';
         key_area.value = '';
         iema(false, '')
+        eema(false, "ログインに成功しました")
         document.title = 'Edit - Autosky'
         const docSnap = await getDoc(doc(db, 'user_data', user.uid)); //↓保存している投稿をロードする
         if (docSnap.exists()) {
